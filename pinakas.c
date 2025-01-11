@@ -93,11 +93,10 @@ const char* element_symbols[NUM_ELEMENTS] = {
 
 int main(){
     int ans1, check, check1, check2, check3; //αρχικοποιουμε 4 ωστε να παιξουνε τουλαχιστον μια φορα
-    int atnu;
 
-        do{
-            check = screenf1(); // καλουμαι την πρωτη οθόνη
-        }while(check > 3 || check < 1);
+        
+        check = screenf1(); // καλουμαι την πρωτη οθόνη
+        
 
         if (check == 1) {
             search();
@@ -113,11 +112,12 @@ int main(){
 }
 
 
-int screenf1(){
-    int ans1, check;
-
+int screenf1() {
+    int ans1;
+    while (1) {  // Συνεχίζει το loop μέχρι να εισαχθεί έγκυρος αριθμός
         system("clear");
 
+        // Εμφανίζει το μενού στην αρχή κάθε loop
         printf("| -------------------------- |\n");
         printf("| Periodic Table of Elements |\n");
         printf("| -------------------------- |\n\n");
@@ -126,8 +126,26 @@ int screenf1(){
         printf("3. Terminate application\n");
         printf("\nType your selection (1, 2 or 3): ");
 
-        scanf("%d", &ans1);
-        return ans1;
+        // Ελέγχει αν η είσοδος είναι έγκυρος αριθμός
+        if (scanf("%d", &ans1) != 1) {  // Μη έγκυρη είσοδος (όχι αριθμός)
+            while (getchar() != '\n');  // Καθαρίζει την μη έγκυρη είσοδο από την μνήμη
+            // Επαναλαμβάνει την εμφάνιση του μενού μετά από μη έγκυρη είσοδο (μη αριθμός)
+        } else if (ans1 < 1 || ans1 > 3) {  // Η είσοδος είναι εκτός των έγκυρων τιμών
+            system("clear");
+
+            // Εμφανίζει το μενού στην αρχή κάθε loop
+            printf("| -------------------------- |\n");
+            printf("| Periodic Table of Elements |\n");
+            printf("| -------------------------- |\n\n");
+            printf("1. Search for individual elements\n");
+            printf("2. Search for group of elements\n");
+            printf("3. Terminate application\n");
+            printf("\nType your selection (1, 2 or 3): ");
+        } else {
+            break;  // Έγκυρη είσοδος, βγαίνει από το loop
+        }
+    }
+    return ans1;
 }
 
 int screenf2(){
@@ -311,11 +329,10 @@ void groupsearch(){
 
         if(minat < 0 || maxat > 118 || bl < 0 || bl > 4 || minmas < 0 || maxmas > 294){
             groupsearch();
-            exit();
+            exit(0);
         }
         if(maxat == 0)
             maxat == 118;
-        if
 
             
 }
