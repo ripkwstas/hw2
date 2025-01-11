@@ -6,12 +6,14 @@
 
 int screenf1();
 int screenf2();
-int screenf4();
 int screenf6();
 int serialSearch();
 void search();
 const char* find_block();
 int elementsearch();
+int symbolsearch();
+void groupsearch();
+void kokkinisma();
 
 // Πίνακας με τα ονόματα των στοιχείων
 const char* element_names[NUM_ELEMENTS] = {
@@ -99,13 +101,13 @@ int main(){
 
         if (check == 1) {
             search();
-            exit(2);
+            return 0;;
         } else if (check == 2) {
-            do {
-                check2 = screenf4();
-            }while (check2 > 3 || check2 < 1);
+            groupsearch();
+            exit(3);// κανουμε exit οταν επιστρεφει απο απο αναζητηση για να βγει κατεθειαν απο το προγραμμα
         } else if (check == 3) {
-            exit(1);
+            system("clear");
+            return 0;
         }
 
 }
@@ -146,34 +148,10 @@ int screenf2(){
 
 }
 
-int screenf4(){
-        int ans1, check;
-
-        system("clear");
-
-        printf("| -------------------------- |\n");
-        printf("| Periodic Table of Elements |\n");
-        printf("| -------------------------- |\n\n");
-        printf("Group of elements search, define, criteria: \n");
-        printf("1. Minimum atomic number: 3\n");
-        printf("2. Maximum atomic number: 7\n");
-        printf("3. Chemical group block: 0\n");
-        printf("4. Minimum atomic mass: 0\n");
-        printf("5. Maximum atomic mass: 0\n");
-
-        return 0;
-
-}
-
-
-
-
-
-
 void search(){
-    int check, flag, atnu, ans, check2;
+    int check, flag, atnu, ans, check2, check3;
     const char* group;
-    char na[10];
+    char na[10], sy[4]; //χρησιμοποιουμε πινακες ωστε να αποθηκευονται καπου τα στοιχεια απο την scanf , το μεγεθος ειναι αναλογα τα μεγιστα γραμματα ενος στοιχειου
             
         do{
             check = screenf2();
@@ -213,7 +191,7 @@ void search(){
                 printf("| Periodic Table of Elements |\n");
                 printf("| -------------------------- |\n\n");
                 printf("Element description \n");
-                printf("1. Atomic number: %d \n", check2);
+                printf("1. Atomic number: %d \n", check2 + 1);
                 printf("2. Name: %s \n", element_names[check2]);
                 printf("3. Symbol: %s \n", element_symbols[check2]);
                 printf("4. Chemical group block: %s\n", find_block(element_names[check2]));
@@ -227,9 +205,32 @@ void search(){
                     exit(0);
                 }
 
+        }else if(check == 3){
+            printf("\n\nProvide a symbol: ");
+            scanf("%10s", sy);
+            check3 = symbolsearch(sy);
+            if(check3 != 119){
+                system("clear");
+
+                printf("| -------------------------- |\n");
+                printf("| Periodic Table of Elements |\n");
+                printf("| -------------------------- |\n\n");
+                printf("Element description \n");
+                printf("1. Atomic number: %d \n", check3 + 1); // προσθετουμε +1 επειδη εχουμε βαλει κατευθειαν την διευθηνση του στοιχειου που βρισκει και επειδη ειναι σε πινακες στρινγκ ειναι -1 
+                printf("2. Name: %s \n", element_names[check3]);
+                printf("3. Symbol: %s \n", element_symbols[check3]);
+                printf("4. Chemical group block: %s\n", find_block(element_names[check3]));
+                printf("5. Atomic mass: %f\n\n", atomic_masses[check3]);
+                printf("1 ---> restart\nanything else --->end programm: ");
+                scanf("%d", &ans);
+                if(ans == 1){
+                    search();
+                    exit(1);
+                }else if(ans != 1)
+                    exit(0);
+            }
         }
 }
-
 
 
 
@@ -237,7 +238,7 @@ void search(){
 const char* find_block(const char* item) {
     // Έλεγχος για κάθε μπλοκ
     for (int i = 0; i < 16; i++) {
-        if (strcmp(s_block_elements[i], item) == 0) {  //χρησιμοποιω την strcmp για να συγκρίνω τα περιεχομενα των 2 strings
+        if (strcmp(s_block_elements[i], item) == 0) {  //χρησιμοποιω την strcmp για να συγκρίνω τα περιεχομενα των 2 strings διοτι εχω βαλει τους πινακες σε στρινγκς
             return "s-block";
         }
     }
@@ -265,10 +266,56 @@ const char* find_block(const char* item) {
 int elementsearch(char *na){
     for(int i = 0; i < NUM_ELEMENTS; i++){
         if(strcmp(element_names[i], na) == 0)
-            return i;
+            return i; // επιστρεφει ο αριθμος στον οποιο βρεθηκε το στοιχειο
     }
     printf("\nName didnt found...\n");
-    return 119;
+    return 119;//το προγραμμα γυριζει 119 για να δειξει πως δεν βρηκε κανενα στοιχειο, το 119 ειναι μεγαλυτερος αριθμος απο ολα τα στοιχεια του πινακα για αυτο επιλεχθηκε αυτος
 
 }
 
+int symbolsearch(char *sy){
+    for(int i = 0; i < NUM_ELEMENTS; i++){
+        if(strcmp(element_symbols[i], sy) == 0)
+            return i;
+    }
+    printf("\nSymbol didnt found...\n");
+    return 119; //το προγραμμα γυριζει 119 για να δειξει πως δεν βρηκε κανενα στοιχειο, το 119 ειναι μεγαλυτερος αριθμος απο ολα τα στοιχεια του πινακα για αυτο επιλεχθηκε αυτος
+}
+
+void groupsearch(){
+    const char* yes[NUM_ELEMENTS]; // Πίνακας δεικτών για τα σύμβολα των στοιχείων
+    int minat, maxat, ans1, ans2, ans3, count = 0;
+    float minmas, maxmas;
+    char bl;
+
+    system("clear");
+
+        printf("| -------------------------- |\n");
+        printf("| Periodic Table of Elements |\n");
+        printf("| -------------------------- |\n\n");
+        printf("Group of elements search, define, criteria: \n");
+
+        printf("1. Minimum atomic number: ");
+        scanf("%d", &minat);
+
+        printf("\n2. Maximum atomic number: ");
+        scanf("%d", &maxat);
+
+        printf("\n3. Chemical group block: ");
+        scanf("%c", &bl);
+
+        printf("\n4. Minimum atomic mass: ");
+        scanf("%f", &minmas);
+        printf("\n5. Maximum atomic mass: ");  
+        scanf("%f", &maxmas);    
+
+        if(minat < 0 || maxat > 118 || bl < 0 || bl > 4 || minmas < 0 || maxmas > 294){
+            groupsearch();
+            exit();
+        }
+        if(maxat == 0)
+            maxat == 118;
+        if
+
+            
+}
