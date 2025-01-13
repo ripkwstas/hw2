@@ -380,6 +380,7 @@ void groupsearch(){
 
         printf("1. Minimum atomic number: ");
         f1 = scanf("%d", &minat);
+        while (getchar() != '\n'); // Clear buffer
         if(f1 != 1 || minat < 0){
             groupsearch();
             exit(1);
@@ -388,11 +389,13 @@ void groupsearch(){
 
         printf("\n2. Maximum atomic number: ");
         f2 = scanf("%d", &maxat);
-        /*if(f2 != 1 || maxat > 118){
+        while (getchar() != '\n'); // Clear buffer
+
+        if(f2 != 1 || maxat > 118){
             groupsearch();
             system("clear");
             exit(1);
-        }*/
+        }
 
         printf("\n3. Chemical group block(s, p, d, f): ");
         f3 = scanf("%c", &bl);
@@ -421,12 +424,26 @@ void groupsearch(){
             maxmas = 294.0;
         if(minmas == 0)
             minmas = 1.00794;
+        if(minat == 0)
+            minat = 1;
         
-        for(int i = minat; i < maxat; i++){
-            printf("\033[31m%d.%s\033[0m\n", i, element_symbols[i - 1]);
+
+        for(int i = 1; i <119; i++){
+            if(i == 1){
+                if((i >=minat && i <= maxat) && (atomic_masses[i - 1] >= minmas && atomic_masses[i - 1] <= maxat )){
+                    printf("\033[31m%d:%s\033[0m  ", i, element_symbols[i - 1]);
+                }else{ 
+                    printf("%d:%s  ", i, element_symbols[i - 1]);
+                }
+                printf("                                                                        ");
+            }else if(i == 2 || i == 10 || 9 == 18 || i == 36 || i == 54 || i == 86 || i == 118 || i == 71 || i == 103){
+                if((i >=minat && i <= maxat) && (atomic_masses[i - 1] >= minmas && atomic_masses[i - 1] <= maxat )){
+                    printf("\033[31m%d:%s\033[0m  ", i, element_symbols[i - 1]);
+                }else{ 
+                    printf("%d:%s  ", i, element_symbols[i - 1]);
+                }
+            }
         }
-
-
-       
+        printf("\n");
             
 }
