@@ -9,7 +9,6 @@ int screenf2();
 int screenf6();
 int serialSearch();
 void search();
-const char* find_block();
 int elementsearch();
 int symbolsearch();
 void groupsearch();
@@ -48,33 +47,32 @@ float atomic_masses[118] = {
 };
 
 
-// Πίνακας με τα ονόματα των στοιχείων του s-block
-const char* s_block_elements[16] = {
-    "Hydrogen", "Helium", "Lithium", "Beryllium", "Sodium", "Magnesium", "Potassium", "Calcium", 
-    "Scandium", "Titanium", "Vanadium", "Chromium", "Manganese", "Iron", "Cobalt", "Nickel"
+const char* chemical_block[NUM_ELEMENTS] = {
+    "Nonmetal", "Noble Gas", "Alkali Metal", "Alkaline Earth Metal", "Metalloid",
+    "Nonmetal", "Nonmetal", "Nonmetal", "Noble Gas", "Alkali Metal",
+    "Alkaline Earth Metal", "Metalloid", "Metalloid", "Nonmetal", "Nonmetal",
+    "Nonmetal", "Nonmetal", "Noble Gas", "Alkali Metal", "Alkaline Earth Metal", 
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Post-Transition Metal", "Metalloid", "Metalloid", "Nonmetal", "Nonmetal",
+    "Nonmetal", "Nonmetal", "Noble Gas", "Alkali Metal", "Alkaline Earth Metal",
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Post-Transition Metal", "Metalloid", "Metalloid", "Nonmetal", "Nonmetal",
+    "Nonmetal", "Noble Gas", "Alkali Metal", "Alkaline Earth Metal", "Transition Metal", 
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Lanthanide", "Lanthanide", "Lanthanide", "Lanthanide", "Lanthanide",
+    "Lanthanide", "Lanthanide", "Lanthanide", "Lanthanide", "Lanthanide",
+    "Actinide", "Actinide", "Actinide", "Actinide", "Actinide",
+    "Actinide", "Actinide", "Actinide", "Actinide", "Actinide",
+    "Post-Transition Metal", "Metalloid", "Nonmetal", "Nonmetal", "Noble Gas",
+    "Post-Transition Metal", "Transition Metal", "Lanthanide", "Lanthanide", "Lanthanide",
+    "Lanthanide", "Lanthanide", "Actinide", "Actinide", "Actinide",
+    "Actinide", "Actinide", "Actinide", "Actinide", "Actinide", 
+    "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal", "Transition Metal",
+    "Transition Metal", "Transition Metal", "Transition Metal"
 };
-
-// Πίνακας με τα ονόματα των στοιχείων του p-block
-const char* p_block_elements[35] = {
-    "Boron", "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon", "Aluminium", "Gallium", "Germanium", "Arsenic",
-    "Selenium", "Bromine", "Krypton", "Indium", "Tin", "Antimony", "Tellurium", "Iodine", "Xenon", "Cesium",
-    "Barium", "Lanthanum", "Cerium", "Praseodymium", "Neodymium", "Promethium", "Samarium", "Europium", "Gadolinium", 
-    "Terbium", "Dysprosium", "Holmium", "Erbium", "Thulium", "Ytterbium"
-};
-
-
-
-// Πίνακας με τα ονόματα των στοιχείων του d-block
-const char* d_block_elements[10] = {
-    "Scandium", "Titanium", "Vanadium", "Chromium", "Manganese", "Iron", "Cobalt", "Nickel", "Copper", "Zinc"
-};
-
-// Πίνακας με τα ονόματα των στοιχείων του f-block
-const char* f_block_elements[14] = {
-    "Lanthanum", "Cerium", "Praseodymium", "Neodymium", "Promethium", "Samarium", "Europium", "Gadolinium", 
-    "Terbium", "Dysprosium", "Holmium", "Erbium", "Thulium", "Ytterbium"
-};
-
 
 const char* element_symbols[NUM_ELEMENTS] = {
     "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne",
@@ -214,7 +212,7 @@ void search(){
                 printf("1. Atomic number: %d \n", atnu);
                 printf("2. Name: %s \n", element_names[atnu - 1]);
                 printf("3. Symbol: %s \n", element_symbols[atnu - 1]);
-                printf("4. Chemical group block: %s\n", find_block(element_names[atnu - 1]));
+                printf("4. Chemical group block: %s\n", chemical_block[atnu - 1]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[atnu - 1]);
                 printf(" 1 ---> Restart the program\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
@@ -258,7 +256,7 @@ void search(){
                 printf("1. Atomic number: %d \n", check2 + 1);
                 printf("2. Name: %s \n", element_names[check2]);
                 printf("3. Symbol: %s \n", element_symbols[check2]);
-                printf("4. Chemical group block: %s\n", find_block(element_names[check2]));
+                printf("4. Chemical group block: %s\n", chemical_block[check2]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check2]);
                 printf(" 1 ---> Restart the program\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
@@ -302,7 +300,7 @@ void search(){
                 printf("1. Atomic number: %d \n", check3 + 1); // προσθετουμε +1 επειδη εχουμε βαλει κατευθειαν την διευθηνση του στοιχειου που βρισκει και επειδη ειναι σε πινακες στρινγκ ειναι -1 
                 printf("2. Name: %s \n", element_names[check3]);
                 printf("3. Symbol: %s \n", element_symbols[check3]);
-                printf("4. Chemical group block: %s\n", find_block(element_names[check3]));
+                printf("4. Chemical group block: %s\n", chemical_block[check3]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check3]);
                 printf("1 ---> restart\nanything else --->end programm: ");
                 scanf("%d", &ans);
@@ -317,38 +315,9 @@ void search(){
 
 
 
-
-const char* find_block(const char* item) {
-    // Έλεγχος για κάθε μπλοκ
-    for (int i = 0; i < 16; i++) {
-        if (strcmp(s_block_elements[i], item) == 0) {  //χρησιμοποιω την strcmp για να συγκρίνω τα περιεχομενα των 2 strings διοτι εχω βαλει τους πινακες σε στρινγκς
-            return "s-block";
-        }
-    }
-    for (int i = 0; i < 35; i++) {
-        if (strcmp(p_block_elements[i], item) == 0) {
-            return "p-block";
-        }
-    }
-    for (int i = 0; i < 10; i++) {
-        if (strcmp(d_block_elements[i], item) == 0) {
-            return "d-block";
-        }
-    }
-    for (int i = 0; i < 14; i++) {
-        if (strcmp(f_block_elements[i], item) == 0) {
-            return "f-block";
-        }
-    }
-
-    return "Block not found";  // Αν το στοιχείο δεν ανήκει σε κανένα από τα μπλοκ
-}
-
-
-
 int elementsearch(char *na){
     for(int i = 0; i < NUM_ELEMENTS; i++){
-        if(strcmp(element_names[i], na) == 0)
+        if(strcasecmp(element_names[i], na) == 0)
             return i; // επιστρεφει ο αριθμος στον οποιο βρεθηκε το στοιχειο
     }
     return 119;//το προγραμμα γυριζει 119 για να δειξει πως δεν βρηκε κανενα στοιχειο, το 119 ειναι μεγαλυτερος αριθμος απο ολα τα στοιχεια του πινακα για αυτο επιλεχθηκε αυτος
@@ -357,7 +326,7 @@ int elementsearch(char *na){
 
 int symbolsearch(char *sy){
     for(int i = 0; i < NUM_ELEMENTS; i++){
-        if(strcmp(element_symbols[i], sy) == 0)
+        if(strcasecmp(element_symbols[i], sy) == 0)
             return i;
     }
     printf("\nSymbol didnt found...\n");
@@ -391,7 +360,7 @@ void groupsearch(){
         f2 = scanf("%d", &maxat);
         while (getchar() != '\n'); // Clear buffer
 
-        if(f2 != 1 || maxat > 118){
+        if(f2 != 1 || maxat > 118 || maxat < minat){
             groupsearch();
             system("clear");
             exit(1);
@@ -428,7 +397,7 @@ void groupsearch(){
             minat = 1;
         
 
-        for(int i = 1; i <119; i++){
+     /*   for(int i = 1; i <119; i++){
             if(i == 1){
                 if((i >=minat && i <= maxat) && (atomic_masses[i - 1] >= minmas && atomic_masses[i - 1] <= maxat )){
                     printf("\033[31m%d:%s\033[0m  ", i, element_symbols[i - 1]);
@@ -444,6 +413,20 @@ void groupsearch(){
                 }
             }
         }
-        printf("\n");
+        printf("\n"); */
+
+
+        for (int i = 0; i < total_elements; i++) {
+
+            if (number == 3 || number == 4 || number == 5 || number == 6 || number == 7) {
+                printf("\033[1;31m%2d:%-2s\033[0m ", number, symbol); // Red text
+            } else {
+                printf("%2d:%-2s ", number, symbol); // Default text
+            }
+
+            if ((i + 1) % 10 == 0) {
+                printf("\n");
+            }
+        }
             
 }
