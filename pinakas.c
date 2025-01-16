@@ -366,9 +366,9 @@ void groupsearch(){
             exit(1);
         }
 
-        printf("\n3. Chemical group block(s, p, d, f): ");
+        printf("\n3. Chemical group block(1. N.  2. A.M  3. A.E.M.  4.T.M.  5. PT.M  6. L.  7. M   8. N.G.  9. A): ");
         f3 = scanf("%c", &bl);
-        if(f3 != 1 || bl != 's' && bl != 'p' && bl != 'd' && bl != 'f' && bl != 0){
+        if(f3 != 1 || bl != 1 && bl != 2 && bl != 3 && bl != 4 && bl != 0 ** bl != 5 && bl != 6 && bl != 7 && bl = 8 && bl != 9){
             groupsearch();
             exit(1);
         }
@@ -396,37 +396,10 @@ void groupsearch(){
         if(minat == 0)
             minat = 1;
         
+        
 
-     /*   for(int i = 1; i <119; i++){
-            if(i == 1){
-                if((i >=minat && i <= maxat) && (atomic_masses[i - 1] >= minmas && atomic_masses[i - 1] <= maxat )){
-                    printf("\033[31m%d:%s\033[0m  ", i, element_symbols[i - 1]);
-                }else{ 
-                    printf("%d:%s  ", i, element_symbols[i - 1]);
-                }
-                printf("                                                                        ");
-            }else if(i == 2 || i == 10 || 9 == 18 || i == 36 || i == 54 || i == 86 || i == 118 || i == 71 || i == 103){
-                if((i >=minat && i <= maxat) && (atomic_masses[i - 1] >= minmas && atomic_masses[i - 1] <= maxat )){
-                    printf("\033[31m%d:%s\033[0m  ", i, element_symbols[i - 1]);
-                }else{ 
-                    printf("%d:%s  ", i, element_symbols[i - 1]);
-                }
-            }
-        }
-        printf("\n"); */
+    
 
-
-        for (int i = 0; i < total_elements; i++) {
-
-            if (number == 3 || number == 4 || number == 5 || number == 6 || number == 7) {
-                printf("\033[1;31m%2d:%-2s\033[0m ", number, symbol); // Red text
-            } else {
-                printf("%2d:%-2s ", number, symbol); // Default text
-            }
-
-            if ((i + 1) % 10 == 0) {
-                printf("\n");
-            }
-        }
+        
             
 }
