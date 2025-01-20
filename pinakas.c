@@ -91,7 +91,8 @@ const char* element_symbols[NUM_ELEMENTS] = {
 
 int main(){
     int ans1, check, check1, check2, check3; //αρχικοποιουμε 4 ωστε να παιξουνε τουλαχιστον μια φορα
-
+        
+        
         
         check = screenf1(); // καλουμαι την πρωτη οθόνη
         
@@ -214,14 +215,18 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[atnu - 1]);
                 printf("4. Chemical group block: %s\n", chemical_block[atnu - 1]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[atnu - 1]);
-                printf(" 1 ---> Restart the program\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
                     exit(1);
-                }else if(ans != 1)
+                }else if(ans == 2){
+                    groupsearch();
+                    exit(1);
+                }else if(ans != 1 && ans != 2){
                     exit(0);
                 }
+            }
         }else if(check == 2){
             do{
                 system("clear");
@@ -258,13 +263,17 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[check2]);
                 printf("4. Chemical group block: %s\n", chemical_block[check2]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check2]);
-                printf(" 1 ---> Restart the program\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
+                    exit(1);
+                }else if(ans == 2){
+                    groupsearch();
+                    exit(1);
+                }else if(ans != 1 && ans != 2){
                     exit(0);
-                }else if(ans != 1)
-                    exit(0);
+                }
                 
 
         }else if(check == 3){
@@ -302,13 +311,17 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[check3]);
                 printf("4. Chemical group block: %s\n", chemical_block[check3]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check3]);
-                printf("1 ---> restart\nanything else --->end programm: ");
+                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
-                    return;
-                }else if(ans != 1)
-                    return;
+                    exit(1);
+                }else if(ans == 2){
+                    groupsearch();
+                    exit(1);
+                }else if(ans != 1 && ans != 2){
+                    exit(0);
+                }
             
         }
 }
@@ -335,7 +348,7 @@ int symbolsearch(char *sy){
 
 void groupsearch(){
     const char* yes[NUM_ELEMENTS]; // Πίνακας δεικτών για τα σύμβολα των στοιχείων
-    int minat, maxat, ans1, ans2, ans3;
+    int minat, maxat, ans1, ans2, ans3, ans;
     float minmas, maxmas;
     char bl;
     int f1, f2, f3, f4, f5;
@@ -368,7 +381,7 @@ void groupsearch(){
 
         printf("\n3. Chemical group block(1. N.  2. A.M  3. A.E.M.  4.T.M.  5. PT.M  6. L.  7. M   8. N.G.  9. A): ");
         f3 = scanf("%c", &bl);
-        if(f3 != 1 || bl != 1 && bl != 2 && bl != 3 && bl != 4 && bl != 0 ** bl != 5 && bl != 6 && bl != 7 && bl = 8 && bl != 9){
+        if(f3 != 1 || bl != 1 && bl != 2 && bl != 3 && bl != 4 && bl != 0 && bl != 5 && bl != 6 && bl != 7 && bl == 8 && bl != 9){
             groupsearch();
             exit(1);
         }
@@ -386,20 +399,53 @@ void groupsearch(){
             groupsearch();
             exit(1);
         }
-
-        if(maxat == 0)
-            maxat = 118;
-        if(maxmas == 0)
-            maxmas = 294.0;
-        if(minmas == 0)
-            minmas = 1.00794;
-        if(minat == 0)
-            minat = 1;
         
-        
+        maxat = (maxat == 0) ? 118 : maxat;
+        maxmas = (maxmas == 0) ? 294.0 : maxmas;
+        minmas = (minmas == 0) ? 1.00794 : minmas;
+        minat = (minat == 0) ? 1 : minat;
 
+
+
+        /*for(int i = 1; i < 57; i++){
+            if(i == 1){
+                if(i >= minat && i <= maxat && (atomic_masses[i -1] >= minat) && (atomic_masses[i - 1] <= maxat)){
+                    printf("\033[31m%d:%s\033[0m\n", i, element_symbols[i - 1]);
+                }else{ 
+                    printf("%d:%s", i , element_symbols[i - 1]);
+                }
+                for(int j = 1; j < 102; j++){
+                    printf(" ");
+                }
+                if(i >= minat && i <= maxat && (atomic_masses[i] >= minat) && (atomic_masses[i] <= maxat)){
+                    printf("\033[31m%d:%s\033[0m\n", i + 1, element_symbols[i]);
+                }else{ 
+                    printf("%d:%s", i + 1 , element_symbols[i]);
+                }
+            }
     
 
-        
-            
+        }*/
+
+        for(int i = 0; i < NUM_ELEMENTS; i++) {
+            if((i + 1) >= minat && (i + 1) <= maxat && 
+                atomic_masses[i] >= minmas && atomic_masses[i] <= maxmas) {
+                printf("\033[31m%d:%s\033[0m\n", i + 1, element_symbols[i]);
+            } else {
+                printf("%d:%s\n", i + 1, element_symbols[i]);
+            }
+        }
+        printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+                scanf("%d", &ans);
+                if(ans == 1){
+                    search();
+                    exit(1);
+                }else if(ans == 2){
+                    groupsearch();
+                    exit(1);
+                }else if(ans != 1 && ans != 2){
+                    exit(0);
+                }
+
+
 }
