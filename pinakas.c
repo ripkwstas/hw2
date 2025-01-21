@@ -6,7 +6,6 @@
 
 int screenf1();
 int screenf2();
-int screenf6();
 int serialSearch();
 void search();
 int elementsearch();
@@ -355,6 +354,8 @@ void groupsearch(){
 
     system("clear");
 
+   
+
         printf("| -------------------------- |\n");
         printf("| Periodic Table of Elements |\n");
         printf("| -------------------------- |\n\n");
@@ -407,34 +408,23 @@ void groupsearch(){
 
 
 
-        /*for(int i = 1; i < 57; i++){
+        for(int i = 0; i < NUM_ELEMENTS; i++) {
             if(i == 1){
-                if(i >= minat && i <= maxat && (atomic_masses[i -1] >= minat) && (atomic_masses[i - 1] <= maxat)){
-                    printf("\033[31m%d:%s\033[0m\n", i, element_symbols[i - 1]);
-                }else{ 
-                    printf("%d:%s", i , element_symbols[i - 1]);
-                }
-                for(int j = 1; j < 102; j++){
-                    printf(" ");
-                }
-                if(i >= minat && i <= maxat && (atomic_masses[i] >= minat) && (atomic_masses[i] <= maxat)){
-                    printf("\033[31m%d:%s\033[0m\n", i + 1, element_symbols[i]);
-                }else{ 
-                    printf("%d:%s", i + 1 , element_symbols[i]);
+                for(int j = 1; j < 16; j++){
+                    printf("\t");
                 }
             }
-    
-
-        }*/
-
-        for(int i = 0; i < NUM_ELEMENTS; i++) {
             if((i + 1) >= minat && (i + 1) <= maxat && 
                 atomic_masses[i] >= minmas && atomic_masses[i] <= maxmas) {
-                printf("\033[31m%d:%s\033[0m\n", i + 1, element_symbols[i]);
+                printf("\033[31m%d:%s\033\t[0m", i + 1, element_symbols[i]);
             } else {
-                printf("%d:%s\n", i + 1, element_symbols[i]);
+                printf("%d:%s\t", i + 1, element_symbols[i]);
+            }
+            if(i == 2 || i == 10 || i == 18  || i == 36 || i == 54 || i == 86 || i == 118 || i == 71 || i == 103){
+                printf("\n");
             }
         }
+        printf("\n");
         printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
