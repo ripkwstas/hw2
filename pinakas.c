@@ -408,7 +408,7 @@ void groupsearch(){
 
 
 
-        for(int i = 0; i < NUM_ELEMENTS; i++) {
+   /*     for(int i = 0; i < NUM_ELEMENTS; i++) {
             if(i == 1){
                 for(int j = 1; j < 16; j++){
                     printf("\t");
@@ -436,6 +436,104 @@ void groupsearch(){
                 }else if(ans != 1 && ans != 2){
                     exit(0);
                 }
+    */
+    for (int k = 1; k < 10; k++) {
+        for (int i = 1; i < 19; i++) {
+            if (k == 1) {
+                if (i > 1 && i < 18) {
+                    printf("\t");
+                } else {
+                    int elementIndex = i - 1;
+                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
+                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
+                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
+                    } else {
+                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
+                    }
+                }
+            }
+            
+            if (k == 2 || k == 3) {
+                if (i > 2 && i < 13) {
+                    printf("\t");
+                } else {
+                    int elementIndex = i - 1;
+                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
+                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
+                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
+                    } else {
+                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
+                    }
+                }
+            }
 
+            if (k == 4 || k == 5) {
+                int elementIndex = i - 1;
+                if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
+                    atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
+                    printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
+                } else {
+                    printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
+                }
+            }
 
+            if (k == 6 || k == 7) {
+                if (i == 3) {
+                    printf("\t");
+                } else {
+                    int elementIndex;
+                    if (k == 6 && i == 4) {
+                        elementIndex = 70;  // For Lanthanides
+                    } else if (k == 7 && i == 4) {
+                        elementIndex = 102; // For Actinides
+                    } else {
+                        elementIndex = i - 1;
+                    }
+                    
+                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
+                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
+                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
+                    } else {
+                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
+                    }
+                }
+            }
+
+            if (k == 8 || k == 9) {
+                if (i < 4) {
+                    printf("\t");
+                } else {
+                    int elementIndex;
+                    if (k == 8 && i == 4) {
+                        elementIndex = 55;  // Starting index for period 8
+                    } else if (k == 9 && i == 4) {
+                        elementIndex = 87;  // Starting index for period 9
+                    } else {
+                        elementIndex = i - 1;
+                    }
+                    
+                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
+                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
+                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
+                    } else {
+                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
+                    }
+                }
+            }
+        }
+        printf("\n");
+    }
+
+     printf("\n 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+    scanf("%d", &ans);
+    if(ans == 1){
+        search();
+        exit(1);
+    }else if(ans == 2){
+        groupsearch();
+        exit(1);
+    }else{
+        exit(0);
+    }
 }
+
