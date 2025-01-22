@@ -214,7 +214,7 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[atnu - 1]);
                 printf("4. Chemical group block: %s\n", chemical_block[atnu - 1]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[atnu - 1]);
-                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
@@ -262,7 +262,7 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[check2]);
                 printf("4. Chemical group block: %s\n", chemical_block[check2]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check2]);
-                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
@@ -310,7 +310,7 @@ void search(){
                 printf("3. Symbol: %s \n", element_symbols[check3]);
                 printf("4. Chemical group block: %s\n", chemical_block[check3]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[check3]);
-                printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
@@ -349,7 +349,7 @@ void groupsearch(){
     const char* yes[NUM_ELEMENTS]; // Πίνακας δεικτών για τα σύμβολα των στοιχείων
     int minat, maxat, ans1, ans2, ans3, ans;
     float minmas, maxmas;
-    char bl;
+    char bl, term;
     int f1, f2, f3, f4, f5;
 
     system("clear");
@@ -364,15 +364,16 @@ void groupsearch(){
         printf("1. Minimum atomic number: ");
         f1 = scanf("%d", &minat);
         while (getchar() != '\n'); // Clear buffer
-        if(f1 != 1 || minat < 0){
+        if(f1 != 1 || minat < 0 || minat > 118){
             groupsearch();
             exit(1);
         }
         
 
         printf("\n2. Maximum atomic number: ");
-        f2 = scanf("%d", &maxat);
+        f2 = scanf("%d%c", &maxat, &term);
         while (getchar() != '\n'); // Clear buffer
+        term != '\n';
 
         if(f2 != 1 || maxat > 118 || maxat < minat){
             groupsearch();
@@ -408,123 +409,111 @@ void groupsearch(){
 
 
 
-   /*     for(int i = 0; i < NUM_ELEMENTS; i++) {
-            if(i == 1){
-                for(int j = 1; j < 16; j++){
-                    printf("\t");
-                }
-            }
-            if((i + 1) >= minat && (i + 1) <= maxat && 
-                atomic_masses[i] >= minmas && atomic_masses[i] <= maxmas) {
-                printf("\033[31m%d:%s\033\t[0m", i + 1, element_symbols[i]);
-            } else {
-                printf("%d:%s\t", i + 1, element_symbols[i]);
-            }
-            if(i == 2 || i == 10 || i == 18  || i == 36 || i == 54 || i == 86 || i == 118 || i == 71 || i == 103){
-                printf("\n");
+ for (int k = 1; k < 10; k++) {
+        int thesi = -1; //για να δειξω πως δεν ειναι σε καμια θεση και να γινονται σωστα τα /t
+    for (int i = 1; i < 19; i++) {
+        
+        // Πρώτη σειρά (k=1)
+        if (k == 1) {
+            if (i == 1) 
+                thesi = 0;  // Υδρογόνο
+            else if (i == 18) 
+                thesi = 1;  // Ήλιο
+            else 
+                thesi = -1;
+        }
+        
+        // Δεύτερη σειρα (k=2)
+
+        else if (k == 2) {
+            if (i == 1) {
+                thesi = 2;
+            } else if (i == 2) {
+                thesi = 3;
+    
+            } else if (i >= 13 && i <= 18) {
+                thesi = i - 9;
+            }else{
+                thesi = -1;
             }
         }
-        printf("\n");
-        printf(" 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
-                scanf("%d", &ans);
-                if(ans == 1){
-                    search();
-                    exit(1);
-                }else if(ans == 2){
-                    groupsearch();
-                    exit(1);
-                }else if(ans != 1 && ans != 2){
-                    exit(0);
-                }
-    */
-    for (int k = 1; k < 10; k++) {
-        for (int i = 1; i < 19; i++) {
-            if (k == 1) {
-                if (i > 1 && i < 18) {
-                    printf("\t");
-                } else {
-                    int elementIndex = i - 1;
-                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
-                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
-                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
-                    } else {
-                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
-                    }
-                }
-            }
-            
-            if (k == 2 || k == 3) {
-                if (i > 2 && i < 13) {
-                    printf("\t");
-                } else {
-                    int elementIndex = i - 1;
-                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
-                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
-                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
-                    } else {
-                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
-                    }
-                }
-            }
-
-            if (k == 4 || k == 5) {
-                int elementIndex = i - 1;
-                if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
-                    atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
-                    printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
-                } else {
-                    printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
-                }
-            }
-
-            if (k == 6 || k == 7) {
-                if (i == 3) {
-                    printf("\t");
-                } else {
-                    int elementIndex;
-                    if (k == 6 && i == 4) {
-                        elementIndex = 70;  // For Lanthanides
-                    } else if (k == 7 && i == 4) {
-                        elementIndex = 102; // For Actinides
-                    } else {
-                        elementIndex = i - 1;
-                    }
-                    
-                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
-                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
-                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
-                    } else {
-                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
-                    }
-                }
-            }
-
-            if (k == 8 || k == 9) {
-                if (i < 4) {
-                    printf("\t");
-                } else {
-                    int elementIndex;
-                    if (k == 8 && i == 4) {
-                        elementIndex = 55;  // Starting index for period 8
-                    } else if (k == 9 && i == 4) {
-                        elementIndex = 87;  // Starting index for period 9
-                    } else {
-                        elementIndex = i - 1;
-                    }
-                    
-                    if ((elementIndex + 1) >= minat && (elementIndex + 1) <= maxat && 
-                        atomic_masses[elementIndex] >= minmas && atomic_masses[elementIndex] <= maxmas) {
-                        printf("\033[31m%d:%s\033[0m\t", elementIndex + 1, element_symbols[elementIndex]);
-                    } else {
-                        printf("%d:%s\t", elementIndex + 1, element_symbols[elementIndex]);
-                    }
-                }
-            }
-        }
-        printf("\n");
+    
+        else if (k == 3) { // τριτη σειρα 
+            if (i == 1) {
+                thesi = 10;
+            } else if (i == 2) {
+                thesi = 11;
+            } else if (i >= 13 && i <= 18) {
+                thesi = i - 1;
+            }else
+                thesi = -1;
     }
+            
+        
+        else if (k == 4) { //τεταρτη σειρα 
+            if (i >= 1 && i <= 18) {
+                thesi = 17 + i;
+            }
+        }
+        else if (k == 5){
+            if(i >= 1 && i <= 18){
+                thesi = 35 + i;
+            }
+        }
+        
+        else if(k == 6){
+            if(i == 1){
+                thesi = 54;
+            }else if(i == 2){
+                thesi= 55;
+            }else if(i == 3){
+                thesi = -1;
+            }else
+                thesi = 67 + i;
+        }
+        else if (k == 7){
+            if(i == 1){
+                thesi = 87;
+            }else if(i == 2){
+                thesi = 88;
+            }else if(i == 3){
+                thesi = -1;
+            }else
+                thesi = 99 + i;
+        }
 
-     printf("\n 1 ---> Search individual\n2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+        else if (k == 8) {
+            if(i >= 4 && i < 19){
+                thesi = 52 + i;
+            }
+        }
+        else if(k == 9){
+            if(i >= 4 && i < 19){
+                thesi = 84 + i;
+            }
+        }
+        
+        // Εκτύπωση στοιχείου ή κενού διαστήματος
+        if (thesi >= 0 && thesi <= 117) {  
+            if ((thesi + 1) >= minat && (thesi + 1) <= maxat && 
+                atomic_masses[thesi] >= minmas && atomic_masses[thesi] <= maxmas) {
+                printf("\033[31m%d:%s\033[0m\t", thesi + 1, element_symbols[thesi]);
+            } else {
+                printf("%d:%s\t", thesi + 1, element_symbols[thesi]);
+            }
+        } else {
+            printf("\t");
+        }
+    }
+    printf("\n");
+}
+
+
+
+
+
+
+     printf("\n 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
     scanf("%d", &ans);
     if(ans == 1){
         search();
