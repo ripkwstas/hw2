@@ -46,7 +46,7 @@ float atomic_masses[118] = {
 };
 
 
-const char* chemical_block[NUM_ELEMENTS] = {
+const char* chemical_block[NUM_ELEMENTS] = { //χημικη ομαδα καθε στοιχειου
     "Nonmetal", "Noble Gas", "Alkali Metal", "Alkaline Earth Metal", "Metalloid",
     "Nonmetal", "Nonmetal", "Nonmetal", "Noble Gas", "Alkali Metal",
     "Alkaline Earth Metal", "Metalloid", "Metalloid", "Nonmetal", "Nonmetal",
@@ -73,7 +73,7 @@ const char* chemical_block[NUM_ELEMENTS] = {
     "Transition Metal", "Transition Metal", "Transition Metal"
 };
 
-const char* element_symbols[NUM_ELEMENTS] = {
+const char* element_symbols[NUM_ELEMENTS] = { // συμβολο καθε στοιχειου
     "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne",
     "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca",
     "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",
@@ -96,7 +96,7 @@ int main(){
         check = screenf1(); // καλουμαι την πρωτη οθόνη
         
 
-        if (check == 1) {
+        if (check == 1) {// στην περιπτωση πουυ θελει να αναζητησει ενα μεμονομενο στοιχειο
             search();
             return 0;;
         } else if (check == 2) {
@@ -126,7 +126,7 @@ int screenf1() {
 
         // Ελέγχει αν η είσοδος είναι έγκυρος αριθμός
         if (scanf("%d", &ans1) != 1) {  // Μη έγκυρη είσοδος (όχι αριθμός)
-            while (getchar() != '\n');  // Καθαρίζει την μη έγκυρη είσοδο από την μνήμη
+            while (getchar() != '\n');  // Καθαρίζει την μη έγκυρη είσοδο από την μνημη δηλαδη απο το buffer 
             // Επαναλαμβάνει την εμφάνιση του μενού μετά από μη έγκυρη είσοδο (μη αριθμός)
         } else if (ans1 < 1 || ans1 > 3) {  // Η είσοδος είναι εκτός των έγκυρων τιμών
             system("clear");
@@ -143,7 +143,7 @@ int screenf1() {
             break;  // Έγκυρη είσοδος, βγαίνει από το loop
         }
     }
-    return ans1;
+    return ans1; //γυρναει την απαντηση 
 }
 
 int screenf2(){
@@ -176,7 +176,7 @@ void search(){
     const char* group;
     char na[10], sy[4]; //χρησιμοποιουμε πινακες ωστε να αποθηκευονται καπου τα στοιχεια απο την scanf , το μεγεθος ειναι αναλογα τα μεγιστα γραμματα ενος στοιχειου
             
-        check = screenf2();
+        check = screenf2(); //ρωταει τον χρηστη ως προς τι θελει να αναζητησει
         
             
         if(check == 1){
@@ -200,9 +200,9 @@ void search(){
                 if (flag != 1 || atnu < 0 || atnu > 118) {
                     while(getchar() != '\n');
                 }
-            } while (flag != 1 || atnu < 0 || atnu > 118);
+            } while (flag != 1 || atnu < 0 || atnu > 118); //επαναλαμβανετε μεχρι να δωθει μια εγκυρη είισοδος
 
-            if(flag == 1 && atnu > 0 && atnu < 119){
+            if(flag == 1 && atnu > 0 && atnu < 119){ //περιπτωση αναζητησης ως πρως τον ατομικο αριθμο
                  system("clear");
 
                 printf("| -------------------------- |\n");
@@ -210,11 +210,11 @@ void search(){
                 printf("| -------------------------- |\n\n");
                 printf("Element description \n");
                 printf("1. Atomic number: %d \n", atnu);
-                printf("2. Name: %s \n", element_names[atnu - 1]);
+                printf("2. Name: %s \n", element_names[atnu - 1]); // αφαιρουμε -1 επειδη στον πίνακα ειναι -1 τα στοιχεια τα σωστα
                 printf("3. Symbol: %s \n", element_symbols[atnu - 1]);
                 printf("4. Chemical group block: %s\n", chemical_block[atnu - 1]);
                 printf("5. Atomic mass: %f\n\n", atomic_masses[atnu - 1]);
-                printf(" 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");
+                printf(" 1 ---> Search individual\n 2---> Search group\n Any key ---> Exit the program\n Your Choice: ");// επειτα απο μια εγκυρη αναζητηση εχει επιλογεσ τι θελει να κανει
                 scanf("%d", &ans);
                 if(ans == 1){
                     search();
@@ -226,7 +226,7 @@ void search(){
                     exit(0);
                 }
             }
-        }else if(check == 2){
+        }else if(check == 2){ // περιπτωση που θελει να αναζητήσει ως προς όνομα 
             do{
                 system("clear");
 
@@ -240,18 +240,18 @@ void search(){
                 printf("\n\nProvide a name: ");
 
 
-                flag = scanf("%10s", na);
+                flag = scanf("%10s", na); // ξερουμε οτι κανενα ονομα δεν μπορει να ξεπεράσει τα 10 γραμματα οποτε φτιαξαμε string με 10 χωριτικοτιτα
 
                 if(flag != 1){
                     while(getchar() != '\n'); // Καθαριζουμε το buffer
                 }   
                 check2 = elementsearch(na);
-            }while(flag != 1 || check2 == 119);
+            }while(flag != 1 || check2 == 119); //επαναλαμβανετε μεχρι να δωθεί εγκυρη είσοδος 
 
             
 
             
-                system("clear");
+                system("clear");  //αν εγινε σωστη εισοδος τοτε εμφανιζει τις πληροφορίες 
 
                 printf("| -------------------------- |\n");
                 printf("| Periodic Table of Elements |\n");
@@ -275,7 +275,7 @@ void search(){
                 }
                 
 
-        }else if(check == 3){
+        }else if(check == 3){ //περίπτωση που θελει να γινει αναζητηση με σύμβολο , ακολουθει το ίδιο μοτύβο με τα απο πάνω 
 
             do{
                 system("clear");
@@ -327,7 +327,7 @@ void search(){
 
 
 
-int elementsearch(char *na){
+int elementsearch(char *na){ // η συναρτηση ψαχνει αν το ονομα υπαρχει στον χημικο πίνακα
     for(int i = 0; i < NUM_ELEMENTS; i++){
         if(strcasecmp(element_names[i], na) == 0)
             return i; // επιστρεφει ο αριθμος στον οποιο βρεθηκε το στοιχειο
@@ -336,7 +336,7 @@ int elementsearch(char *na){
 
 }
 
-int symbolsearch(char *sy){
+int symbolsearch(char *sy){ // η συναρτηση ψαχνει αν το συμβολο υπαρχει στον χημικο πίνακα
     for(int i = 0; i < NUM_ELEMENTS; i++){
         if(strcasecmp(element_symbols[i], sy) == 0)
             return i;
@@ -345,7 +345,7 @@ int symbolsearch(char *sy){
     return 119; //το προγραμμα γυριζει 119 για να δειξει πως δεν βρηκε κανενα στοιχειο, το 119 ειναι μεγαλυτερος αριθμος απο ολα τα στοιχεια του πινακα για αυτο επιλεχθηκε αυτος
 }
 
-void groupsearch(){
+void groupsearch(){ // αναζητηση ανα ομάδα 
     const char* yes[NUM_ELEMENTS]; // Πίνακας δεικτών για τα σύμβολα των στοιχείων
     int minat, maxat, ans1, ans2, ans3, ans;
     float minmas, maxmas;
@@ -371,14 +371,13 @@ void groupsearch(){
         
 
         printf("\n2. Maximum atomic number: ");
-        f2 = scanf("%d%c", &maxat, &term);
+        f2 = scanf("%d", &maxat);
         while (getchar() != '\n'); // Clear buffer
-        term != '\n';
-
+        
         if(f2 != 1 || maxat > 118 || maxat < minat){
-            groupsearch();
+            groupsearch(); // αν δεν γίνει σωστη εισοδος όλα απο την αρχη 
             system("clear");
-            exit(1);
+            exit(1);  // επειδη κάλεσμα την ίδιας συναρτησης αφου τελειωσει η αλλη θα επιστρεψει σε αυτην πάλι οποτε πρεπει να γίνετε exit 
         }
 
         printf("\n3. Chemical group block(1. N.  2. A.M  3. A.E.M.  4.T.M.  5. PT.M  6. L.  7. M   8. N.G.  9. A): ");
@@ -402,7 +401,7 @@ void groupsearch(){
             exit(1);
         }
         
-        maxat = (maxat == 0) ? 118 : maxat;
+        maxat = (maxat == 0) ? 118 : maxat;  
         maxmas = (maxmas == 0) ? 294.0 : maxmas;
         minmas = (minmas == 0) ? 1.00794 : minmas;
         minat = (minat == 0) ? 1 : minat;
@@ -525,4 +524,3 @@ void groupsearch(){
         exit(0);
     }
 }
-
